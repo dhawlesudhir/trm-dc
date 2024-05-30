@@ -250,7 +250,7 @@
     </div>
       <footer class="footer">
         <div class="container text-center">
-          <span>www.therechargemart.biz</span>
+          <span> <a href="https://therechargemart.biz" style="text-decoration: none">www.therechargemart.biz</a> </span>
         </div>
       </footer>
 

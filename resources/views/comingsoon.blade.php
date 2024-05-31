@@ -21,8 +21,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
     <!-- CSS -->
-    <link rel="stylesheet" href="//therechargemart.biz/css/style.css" />
-    {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}" /> --}}
+    @vite('resources/css/style.css')
     <title>TheRechargeMart</title>
   </head>
   <body>

@@ -9,6 +9,6 @@ jobs:
         # with:
         #   repository: ""
       - name: Install Dependencied
-        run: npm ci
+        run: composer update
       - name: Run build
         run: npm run build

@@ -1,13 +1,13 @@
 name: Build Assets
 on: [push, workflow_dispatch]
 env:
-  IMAGE_TAG: Get-Date -format dd-mm-yyy:hh:mm
+  IMAGE_TAG: ""
 jobs:
   run-composer:
     runs-on: ubuntu-latest
     steps:
       - name: Dynamically set MY_DATE environment variable
-        run: echo ${{ env.IMAGE_TAG }}
+        run: echo "IMAGE_TAG=Get-Date -format "dd-mm-yyy:hh:mm"" >> $env:GITHUB_ENV
       - name: CheckOut Git Repository
         uses: actions/checkout@v3
         # with:

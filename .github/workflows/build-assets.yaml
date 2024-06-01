@@ -18,3 +18,12 @@ jobs:
         run: npm install
       - name: Run build
         run: npm run build
+      - name: Login Dockerhub
+        env:
+          DOCKER_USERNAME: dhawlesudhir@gmail.com
+          DOCKER_PASSWORD: practice@0106
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Build docker image
+        run: docker build -t dhawlesudhir/laravel-app .
+      - name: Push to Dockerhub
+        run: docker push varsubham/cicd-pipeline:latest

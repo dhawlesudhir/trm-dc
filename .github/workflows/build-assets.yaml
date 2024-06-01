@@ -1,5 +1,7 @@
 name: Build Assets
 on: [push, workflow_dispatch]
+env:
+  IMAGE_TAG: $(date +%s)
 jobs:
   run-composer:
     runs-on: ubuntu-latest
@@ -24,6 +26,6 @@ jobs:
           DOCKER_PASSWORD: practice@0106
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - name: Build docker image
-        run: docker build -t dhawlesudhir/laravel-app:$(date +%s) .
+        run: docker build -t dhawlesudhir/laravel-app:$IMAGE_TAG .
       - name: Push to Dockerhub
-        run: docker push dhawlesudhir/laravel-app:$(date +%s)
+        run: docker push dhawlesudhir/laravel-app:$IMAGE_TAG

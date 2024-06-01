@@ -8,8 +8,6 @@ jobs:
     steps:
       - name: Put current date into a variable
         run: echo "IMAGE_TAG1=$(date +'%d%m%Y-%H%M')" >> $GITHUB_ENV
-      - name: Use variable IMAGE_TAG
-        run: echo $IMAGE_TAG1
       - name: CheckOut Git Repository
         uses: actions/checkout@v3
         # with:
@@ -20,6 +18,10 @@ jobs:
           php-version: 8.3
       - name: Run composer
         run: composer install --no-interaction
+      - name: COPY env file
+        run: |
+          cp .env.example .env
+          php artisan key:generate
       - name: Run npm
         run: npm install
       - name: Run build

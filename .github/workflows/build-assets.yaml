@@ -1,7 +1,7 @@
 name: Build Assets
 on: [push, workflow_dispatch]
 jobs:
-  build-assets:
+  run-composer:
     runs-on: ubuntu-latest
     steps:
       - name: CheckOut Git Repository
@@ -12,7 +12,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.3
-      - name: Install Dependencied
+      - name: Run composer
         run: composer install --no-interaction
+      - name: Run npm
+        run: npm ci
       - name: Run build
         run: npm run build

@@ -30,28 +30,22 @@ jobs:
         run: npm install
       - name: Run build
         run: npm run build
-      - name: Upload build files for build-push-image step
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-folder
-          path: public/build
-      # - name: Login Dockerhub
-      #   env:
-      #     DOCKER_USERNAME: dhawlesudhir@gmail.com
-      #     DOCKER_PASSWORD: practice@0106
-      #   run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      # - name: Build docker image
-      #   run: docker build -t dhawlesudhir/laravel-app:$IMAGE_TAG1 .
-      # - name: Push to Dockerhub
-      #   run: docker push dhawlesudhir/laravel-app:$IMAGE_TAG1
-  build-push-image:
+      - name: Login Dockerhub
+        env:
+          DOCKER_USERNAME: dhawlesudhir@gmail.com
+          DOCKER_PASSWORD: practice@0106
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Build docker image
+        run: docker build -t dhawlesudhir/laravel-app:$IMAGE_TAG1 .
+      - name: Push to Dockerhub
+        run: docker push dhawlesudhir/laravel-app:$IMAGE_TAG1
+  pull-run-image:
     needs: build-asset
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - name: Download build files
-        uses: actions/download-artifact@v3
-        with:
-          name: build-folder
-      - name: Display build-folder
-        run: ls
-  # deploy-run-image:
+      - name: Value $IMAGE_TAG1
+        run: echo "IMAGE_TAG -> $IMAGE_TAG , IMAGE_TAG1 -> $IMAGE_TAG1"
+      - name: Pull latest Image
+        run: docker pull dhawlesudhir/laravel-app:$IMAGE_TAG1
+      - name: Run Container
+        run: docker run -p 8000:8000 -d --rm dhawlesudhir/laravel-app:$IMAGE_TAG1

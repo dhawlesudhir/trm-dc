@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Dynamically set MY_DATE environment variable
         run: echo "IMAGE_TAG=Get-Date -format "dd-mm-yyy:hh:mm"" >> $env:GITHUB_ENV
+      - name: Use variable IMAGE_TAG
+        run: echo "${{env.IMAGE_TAG}}"
       - name: CheckOut Git Repository
         uses: actions/checkout@v3
         # with:

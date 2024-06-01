@@ -32,6 +32,6 @@ jobs:
           DOCKER_PASSWORD: practice@0106
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - name: Build docker image
-        run: docker build -t dhawlesudhir/laravel-app:$IMAGE_TAG1 .
+        run: docker build -t dhawlesudhir/laravel-app:$IMAGE_TAG .
       - name: Push to Dockerhub
-        run: docker push dhawlesudhir/laravel-app:$IMAGE_TAG1
+        run: docker push dhawlesudhir/laravel-app:$IMAGE_TAG

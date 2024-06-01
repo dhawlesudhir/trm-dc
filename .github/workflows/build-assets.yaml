@@ -4,14 +4,15 @@ on:
   push:
     branches:
       - production
-env:
-  IMAGE_TAG: ""
 jobs:
   build-asset:
     runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{steps.set-image-tag.outputs.tmp_image-tag}}
     steps:
       - name: Put current date into a variable
-        run: echo "IMAGE_TAG1=$(date +'%d%m%Y-%H%M')" >> $GITHUB_ENV
+        id: set-image-tag
+        run: echo "tmp_image-tag=$(date +'%d%m%Y-%H%M')" >> $GITHUB_OUTPUT
       - name: CheckOut Git Repository
         uses: actions/checkout@v3
         # with:
@@ -36,12 +37,14 @@ jobs:
           DOCKER_PASSWORD: practice@0106
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - name: Build docker image
-        run: docker build -t dhawlesudhir/laravel-app:$IMAGE_TAG1 .
+        run: docker build -t dhawlesudhir/laravel-app:${{steps.set-image-tag.outputs.image-tag}} .
       - name: Push to Dockerhub
-        run: docker push dhawlesudhir/laravel-app:$IMAGE_TAG1
+        run: docker push dhawlesudhir/laravel-app:${{steps.set-image-tag.outputs.image-tag}}
   pull-run-image:
     needs: build-asset
     runs-on: self-hosted
+    env:
+      IMAGE_TAG: ${{ needs.build-asset.outputs.image-tag }}
     steps:
       - name: Value $IMAGE_TAG1
         run: echo "IMAGE_TAG -> $IMAGE_TAG , IMAGE_TAG1 -> $IMAGE_TAG1"

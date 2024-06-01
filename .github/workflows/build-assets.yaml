@@ -1,9 +1,13 @@
 name: Build Assets
-on: [push, workflow_dispatch]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - production
 env:
   IMAGE_TAG: ""
 jobs:
-  run-composer:
+  build-asset:
     runs-on: ubuntu-latest
     steps:
       - name: Put current date into a variable
@@ -32,6 +36,8 @@ jobs:
           DOCKER_PASSWORD: practice@0106
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - name: Build docker image
-        run: docker build -t dhawlesudhir/laravel-app:$IMAGE_TAG .
+        run: docker build -t dhawlesudhir/laravel-app:$IMAGE_TAG1 .
       - name: Push to Dockerhub
-        run: docker push dhawlesudhir/laravel-app:$IMAGE_TAG
+        run: docker push dhawlesudhir/laravel-app:$IMAGE_TAG1
+  # build-push-image:
+  # deploy-run-image:

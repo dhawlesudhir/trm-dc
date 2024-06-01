@@ -1,0 +1,12 @@
+name: Practice Workflow
+on: [push, workflow_dispatch]
+jobs:
+  practice-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Composer update/install
+        run: echo "composer updating/installing ....!"
+      - name: Build Assets
+        run: echo "Building assets"
+      - name: Deploy
+        run: echo "Deploying..."

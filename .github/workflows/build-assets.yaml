@@ -24,6 +24,6 @@ jobs:
           DOCKER_PASSWORD: practice@0106
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - name: Build docker image
-        run: docker build -t dhawlesudhir/laravel-app .
+        run: docker build -t dhawlesudhir/laravel-app:$(date +%s) -f .\dockerfile.pro  .
       - name: Push to Dockerhub
-        run: docker push varsubham/cicd-pipeline:latest
+        run: docker push dhawlesudhir/laravel-app:$(date +%s)

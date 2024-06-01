@@ -45,6 +45,7 @@ jobs:
       # - name: Push to Dockerhub
       #   run: docker push dhawlesudhir/laravel-app:$IMAGE_TAG1
   build-push-image:
+    needs: build-asset
     runs-on: ubuntu-latest
     steps:
       - name: Download build files

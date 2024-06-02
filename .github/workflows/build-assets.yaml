@@ -67,8 +67,9 @@ jobs:
             "image":
             {
             "registry_type": "DOCKER_HUB",
+            "registry": "dhawlesudhir",
             "repository": "laravel-app",
             "tag": "${{ needs.build-asset.outputs.image-tag }}",
             },
-            }
+            },
             ]'

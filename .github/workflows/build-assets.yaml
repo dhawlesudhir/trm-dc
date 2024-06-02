@@ -57,19 +57,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: DG App Platform Deploy
-        uses: digitalocean/app_action@v1.1.5
+        uses: digitalocean/app_action@v1.1.6
         with:
           app_name: octopus-app
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN}}
           images: '[
             {
-            "name": "${{ needs.build-asset.outputs.image-tag }}",
-            "image":
-            {
-            "registry_type": "DOCKER_HUB",
-            "registry": "dhawlesudhir",
-            "repository": "laravel-app",
-            "tag": "${{ needs.build-asset.outputs.image-tag }}"
-            },
-            },
-            ]'
+              "name": "${{ needs.build-asset.outputs.image-tag }}",
+              "image":{
+                "registry_type": "DOCKER_HUB",
+                "registry": "dhawlesudhir",
+                "repository": "laravel-app",
+                "tag": "${{ needs.build-asset.outputs.image-tag }}"
+              },
+          ]'

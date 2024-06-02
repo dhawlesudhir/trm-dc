@@ -70,5 +70,5 @@ jobs:
             "repository": "laravel-app",
             "tag": "${{ needs.build-asset.outputs.image-tag }}",
             },
-            },
+            }
             ]'

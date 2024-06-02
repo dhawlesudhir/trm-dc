@@ -63,11 +63,12 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN}}
           images: '[
             {
-            "name": ${{ needs.build-asset.outputs.image-tag }},
-            "image":{
+            "name": "${{ needs.build-asset.outputs.image-tag }}",
+            "image":
+            {
             "registry_type": "DOCKER_HUB",
             "repository": "laravel-app",
-            "tag": ${{ needs.build-asset.outputs.image-tag }}
+            "tag": "${{ needs.build-asset.outputs.image-tag }}",
             },
-            }
+            },
             ]'

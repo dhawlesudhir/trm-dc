@@ -69,5 +69,5 @@ jobs:
                 "registry": "dhawlesudhir",
                 "repository": "laravel-app",
                 "tag": "${{ needs.build-asset.outputs.image-tag }}"
-              },
+              }
           ]'

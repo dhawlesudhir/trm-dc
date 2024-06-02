@@ -40,15 +40,34 @@ jobs:
         run: docker build -t dhawlesudhir/laravel-app:${{steps.set-image-tag.outputs.image-tag}} .
       - name: Push to Dockerhub
         run: docker push dhawlesudhir/laravel-app:${{steps.set-image-tag.outputs.image-tag}}
-  pull-run-image:
+  # pull-run-image:
+  #   needs: build-asset
+  #   runs-on: self-hosted
+  #   env:
+  #     IMAGE_TAG: ${{ needs.build-asset.outputs.image-tag }}
+  #   steps:
+  #     - name: Display IMAGE_TAG
+  #       run: echo $IMAGE_TAG
+  #     - name: Pull latest Image
+  #       run: docker pull dhawlesudhir/laravel-app:$IMAGE_TAG
+  #     - name: Run Container
+  #       run: docker run -p 8000:8000 -d --rm dhawlesudhir/laravel-app:$IMAGE_TAG
+  deploy:
     needs: build-asset
-    runs-on: self-hosted
-    env:
-      IMAGE_TAG: ${{ needs.build-asset.outputs.image-tag }}
+    runs-on: ubuntu-latest
     steps:
-      - name: Display IMAGE_TAG
-        run: echo $IMAGE_TAG
-      - name: Pull latest Image
-        run: docker pull dhawlesudhir/laravel-app:$IMAGE_TAG
-      - name: Run Container
-        run: docker run -p 8000:8000 -d --rm dhawlesudhir/laravel-app:$IMAGE_TAG
+      - name: DG App Platform Deploy
+        uses: digitalocean/app_action@v1.1.5
+        with:
+          app_name: octopus-app
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN}}
+          images: '[
+            {
+            "name": "",
+            "image":{
+            "registry_type": "DOCKER_HUB",
+            "repository": "laravel-app",
+            "tag": ${{ needs.build-asset.outputs.image-tag }}
+            },
+            }
+            ]'

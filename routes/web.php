@@ -7,5 +7,5 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    return "runs-on:self test";
+    return "runs-on:app platform";
 });

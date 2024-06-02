@@ -2,8 +2,8 @@ name: Build Assets
 on:
   workflow_dispatch:
   push:
-    # branches:
-    #   - production
+    branches:
+      - production
 jobs:
   build-asset:
     runs-on: ubuntu-latest

@@ -40,18 +40,6 @@ jobs:
         run: docker build -t dhawlesudhir/laravel-app:${{steps.set-image-tag.outputs.image-tag}} .
       - name: Push to Dockerhub
         run: docker push dhawlesudhir/laravel-app:${{steps.set-image-tag.outputs.image-tag}}
-  # pull-run-image:
-  #   needs: build-asset
-  #   runs-on: self-hosted
-  #   env:
-  #     IMAGE_TAG: ${{ needs.build-asset.outputs.image-tag }}
-  #   steps:
-  #     - name: Display IMAGE_TAG
-  #       run: echo $IMAGE_TAG
-  #     - name: Pull latest Image
-  #       run: docker pull dhawlesudhir/laravel-app:$IMAGE_TAG
-  #     - name: Run Container
-  #       run: docker run -p 8000:8000 -d --rm dhawlesudhir/laravel-app:$IMAGE_TAG
   deploy:
     needs: build-asset
     runs-on: ubuntu-latest

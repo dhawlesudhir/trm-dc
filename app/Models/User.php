@@ -6,10 +6,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -28,8 +29,24 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        "id",
         'password',
         'remember_token',
+        "city_region",
+        "geography_region",
+        "state",
+        "map_cordinates",
+        "kyc_id",
+        "user_type",
+        "refer_by",
+        "status",
+        "subcription",
+        "distributor_or_rm",
+        "alt_mobile",
+        "office_number",
+        "email_verified_at",
+        "created_at",
+        "updated_at"
     ];
 
     /**

@@ -27,14 +27,39 @@ class UserValidation extends FormRequest
         return [
 
             //login
-            'login_id' => function ($attribute, $user_id) {
-                $this->validateUserId($attribute, $user_id);
+            'login_id' => function ($attribute, $login_id) {
+                $this->validate_login_id($login_id);
             },
-            // -todo 'required' replace with regular expression
-            'password' => 'required',
+            'password' => 'required_without:first_name,mobile,state',
 
             //signup or register
             'email' => 'email|unique:users,email',
+            'first_name' => 'required_with_all:mobile,state|max:30',
+            'middle_name' => 'nullable|string|max:30',
+            'last_name' => 'nullable|string|max:30',
+            'firm_name' => 'nullable|string|max:255',
+            'mobile' => 'nullable|numeric|unique:users,mobile|max_digits:10',
+            'alt_mobile' => 'nullable|numeric|max_digits:10',
+            'office_number' => 'nullable|numeric|max_digits:10',
+
+            'property_number_or_name' => 'nullable|string|max:255',
+            'additional_address_details' => 'nullable|string|max:255',
+            'landmark' => 'nullable|string|max:255',
+            'building_name' => 'nullable|string|max:255',
+            'area_name' => 'nullable|string|max:255',
+            'pincode' => 'nullable|string|max:255',
+            'city_or_village' => 'nullable|string|max:255',
+            'city_region' => 'nullable|string|max:255',
+            'geography_region' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
+            'map_cordinates' => 'nullable|string|max:255',
+
+            'kyc_id' => 'nullable|numeric|max:11',
+            'user_type' => 'nullable|numeric|max:11',
+            'refer_by' => 'nullable|string|max:255',
+            'status' => 'nullable|numeric|max:11',
+            'subcription' => 'nullable|numeric|max:11',
+            'distributor_or_rm' => 'nullable|string|max:255'
 
             //updatePassword
 
@@ -48,7 +73,7 @@ class UserValidation extends FormRequest
      * @param [type] $user_id
      * @return array
      */
-    public function validateUserId($attribute, $user_id)
+    public function validate_login_id($user_id)
     {
 
         $user = User::where('login_id', $user_id)

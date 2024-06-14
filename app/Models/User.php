@@ -3,10 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -61,4 +64,33 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Undocumented function
+     *
+     * @return Attribute
+     */
+    protected function loginId(): Attribute
+    {
+        return Attribute::make(
+            set: function (string $value) {
+
+                $user_type_prefix = match ($this->user_type) {
+                    '1' => 'DT',
+                    '2' => 'RT',
+                    default => 'NA',
+                };
+
+                return $user_type_prefix . str_pad($value, strlen($value) + 2, '0', STR_PAD_LEFT);
+            }
+        );
+    }
+    // currently not required (CNR)
+    // public function getNextId()
+    // {
+
+    //     $statement = DB::select("show table status like 'users'");
+
+    //     return $statement[0]->Auto_increment;
+    // }
 }

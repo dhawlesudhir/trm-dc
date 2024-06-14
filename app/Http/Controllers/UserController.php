@@ -9,6 +9,7 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Requests\UserValidation;
 use App\Helpers\Helper;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -33,9 +34,10 @@ class UserController extends Controller
 
             $token = $user->createToken('trm-dc');
         } catch (Exception $object) {
+            Log::error("Exception in login User {login_id}, {errorMessage} ", ['login_id' => $login_id, 'errorMessage' => $object->getMessage()]);
             return response()->json(['status' => 'failed', 'message' => 'something went wrong, try again later!'], 400);
         }
-
+        Log::info("User {login_id} logged in successfully!", ['login_id' => $login_id]);
         return response()->json(['status' => 'success', 'message' => 'logged in successfully!', 'tokenId' => $token->plainTextToken], 200);
     }
 
@@ -47,7 +49,8 @@ class UserController extends Controller
             } else {
                 return response()->json(['status' => 'failed', 'message' => 'failed to register, try again!'], 400);
             }
-        } catch (Exception $th) {
+        } catch (Exception $object) {
+            Log::error("Exception in User registration, User's mobile:{mobile}, Error:{errorMessage} ", ['mobile' => $request->mobile ?? '', 'errorMessage' => $object->getMessage()]);
             return response()->json(['status' => 'failed', 'message' => 'something went wrong, try again later!'], 400);
         }
     }
@@ -55,8 +58,11 @@ class UserController extends Controller
     public function updatePassword(UserValidation $request)
     {
 
-        $user_id = $request->login_id;
-        $user = User::where('mobile', $user_id)->orWhere('email', $user_id)->first();
+        $login_id = $request->login_id;
+        $user = User::where('login_id', $login_id)
+            ->orWhere('mobile', $login_id)
+            ->orWhere('email', $login_id)
+            ->first();
 
         if (!$user) {
             throw ValidationException::withMessages([
@@ -67,8 +73,10 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
 
         if ($user->save()) {
+            Log::info("User {login_id} updated password successful!", ['login_id' => $login_id]);
             return response()->json(['status' => 'password updated successful!'], 200);
         } else {
+            Log::warning("User failed to update password!, LoginId {login_id}", ['login_id' => $login_id]);
             return response()->json(['status' => 'failed', 'message' => 'failed to update password!'], 400);
         }
     }
@@ -119,9 +127,10 @@ class UserController extends Controller
 
         $createdFlag = null;
         $createdFlag = $user->save();
-
         $user->login_id = $user->id;
         $user->save();
+        $createdFlag && Log::info("User created successfully, id:{id}", ['id' => $user->login_id ?? $user->id]);
+
         return $createdFlag;
     }
 }

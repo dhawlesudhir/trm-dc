@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use Illuminate\Validation\ValidationException;
 use App\Http\Requests\UserValidation;
 use App\Helpers\Helper;
 use Exception;
@@ -13,32 +11,11 @@ use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-    public function login(UserValidation $request)
+
+    public function index()
     {
-
-        $login_id = $request->login_id;
-        $enteredPassword = $request->password;
-
-        try {
-
-            $user = User::where('login_id', $login_id)
-                ->orWhere('mobile', $login_id)
-                ->orWhere('email', $login_id)
-                ->first();
-
-            $password = $user->makeVisible(['password'])->password;
-
-            if (!$user || !Hash::check($enteredPassword, $password)) {
-                return response()->json(['status' => 'failed', 'message' => 'The provided credentials are incorrect.'], 400);
-            }
-
-            $token = $user->createToken('trm-dc');
-        } catch (Exception $object) {
-            Log::error("Exception in login User {login_id}, {errorMessage} ", ['login_id' => $login_id, 'errorMessage' => $object->getMessage()]);
-            return response()->json(['status' => 'failed', 'message' => 'something went wrong, try again later!'], 400);
-        }
-        Log::info("User {login_id} logged in successfully!", ['login_id' => $login_id]);
-        return response()->json(['status' => 'success', 'message' => 'logged in successfully!', 'tokenId' => $token->plainTextToken], 200);
+        $user = User::all();
+        return response()->json($user);
     }
 
     public function signup(UserValidation $request)
@@ -52,32 +29,6 @@ class UserController extends Controller
         } catch (Exception $object) {
             Log::error("Exception in User registration, User's mobile:{mobile}, Error:{errorMessage} ", ['mobile' => $request->mobile ?? '', 'errorMessage' => $object->getMessage()]);
             return response()->json(['status' => 'failed', 'message' => 'something went wrong, try again later!'], 400);
-        }
-    }
-
-    public function updatePassword(UserValidation $request)
-    {
-
-        $login_id = $request->login_id;
-        $user = User::where('login_id', $login_id)
-            ->orWhere('mobile', $login_id)
-            ->orWhere('email', $login_id)
-            ->first();
-
-        if (!$user) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
-        }
-
-        $user->password = Hash::make($request->password);
-
-        if ($user->save()) {
-            Log::info("User {login_id} updated password successful!", ['login_id' => $login_id]);
-            return response()->json(['status' => 'password updated successful!'], 200);
-        } else {
-            Log::warning("User failed to update password!, LoginId {login_id}", ['login_id' => $login_id]);
-            return response()->json(['status' => 'failed', 'message' => 'failed to update password!'], 400);
         }
     }
 

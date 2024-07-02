@@ -67,14 +67,14 @@ class UserController extends Controller
         $user->state =  $fields->state ?? '';
         //todo spellingcheck
         $user->map_cordinates =  $fields->map_cordinates ?? '';
-        $user->kyc_id =  $fields->kyc_id ?? 0;
+        $user->kyc_id =  0;
 
-        $user->user_type =  $fields->user_type ?? '';
+        $user->user_type =  'R';
         $user->refer_by =  $fields->refer_by ?? '';
-        $user->status =  $fields->status ?? 0;
+        $user->status = 0;
         //todo spellingcheck
-        $user->subcription =  $fields->subscription ?? 0;
-        $user->distributor_or_rm =  $fields->distributor_or_rm ?? '';
+        $user->subcription = 0;
+        $user->distributor_or_rm =  $fields->refer_by ?? '';
         $user->remember_token =  $fields->remember_token ?? '';
 
         $createdFlag = null;

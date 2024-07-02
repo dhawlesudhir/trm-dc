@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\Helper;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class UserValidation extends FormRequest
@@ -23,46 +25,47 @@ class UserValidation extends FormRequest
      */
     public function rules(): array
     {
-        // $user_id = $request->user_id;
         return [
+            'action' => 'required|in:login,signup,update',
 
             //login
             'login_id' => function ($attribute, $login_id) {
                 $this->validate_login_id($login_id);
             },
-            'password' => 'required_without:first_name,mobile,state',
+            'password' => 'required_if:action,login',
 
             //signup or register
-            'email' => 'email|unique:users,email',
-            'first_name' => 'required_with_all:mobile,state|max:30',
-            'middle_name' => 'nullable|string|max:30',
-            'last_name' => 'nullable|string|max:30',
-            'firm_name' => 'nullable|string|max:255',
-            'mobile' => 'nullable|numeric|unique:users,mobile|max_digits:10',
-            'alt_mobile' => 'nullable|numeric|max_digits:10',
-            'office_number' => 'nullable|numeric|max_digits:10',
+            'email' => 'sometimes|email|unique:users,email',
+            'first_name' => 'required_if:action,signup|max:30',
+            'middle_name' => 'sometimes|required|string|max:30',
+            'last_name' => 'required_if:action,signup|string|max:30',
+            'firm_name' => 'sometimes|required|string|max:255',
 
-            'property_number_or_name' => 'nullable|string|max:255',
-            'additional_address_details' => 'nullable|string|max:255',
-            'landmark' => 'nullable|string|max:255',
-            'building_name' => 'nullable|string|max:255',
-            'area_name' => 'nullable|string|max:255',
-            'pincode' => 'nullable|string|max:255',
-            'city_or_village' => 'nullable|string|max:255',
-            'city_region' => 'nullable|string|max:255',
-            'geography_region' => 'nullable|string|max:255',
-            'state' => 'nullable|string|max:255',
-            'map_cordinates' => 'nullable|string|max:255',
+            'mobile' => 'required_if:action,signup|prohibited_if:action,update|numeric|unique:users,mobile|max_digits:10',
+            'alt_mobile' => 'sometimes|required|numeric|max_digits:10',
+            'office_number' => 'sometimes|required|numeric|max_digits:10',
 
-            'kyc_id' => 'nullable|numeric|max:11',
-            'user_type' => 'nullable|numeric|max:11',
-            'refer_by' => 'nullable|string|max:255',
-            'status' => 'nullable|numeric|max:11',
-            'subcription' => 'nullable|numeric|max:11',
-            'distributor_or_rm' => 'nullable|string|max:255'
+            'property_number_or_name' => 'sometimes|required|string|max:255',
+            'additional_address_details' => 'sometimes|required|string|max:255',
+            'landmark' => 'sometimes|required|string|max:255',
+            'building_name' => 'sometimes|required|string|max:255',
+            'area_name' => 'sometimes|required|string|max:255',
+            'pincode' => 'sometimes|required|string|max:255',
+            'city_or_village' => 'sometimes|required|string|max:255',
+            'city_region' => 'sometimes|required|string|max:255',
+            'geography_region' => 'sometimes|required|string|max:255',
+            'state' => 'required_if:action,signup|string|max:255',
+            'map_cordinates' => 'sometimes|required|string|max:255',
 
-            //updatePassword
-
+            //update
+            'user_type' => function ($attribute, $user_type) {
+                $this->validate_user_type($user_type);
+            },
+            'refer_by' => 'required_if:action,signup|string|max:255|exclude_if:action,update',
+            'kyc_id' => 'exclude',
+            'status' => 'exclude',
+            'subcription' => 'exclude',
+            'distributor_or_rm' => 'exclude'
         ];
     }
 
@@ -75,7 +78,6 @@ class UserValidation extends FormRequest
      */
     public function validate_login_id($user_id)
     {
-
         $user = User::where('login_id', $user_id)
             ->orWhere('mobile', $user_id)
             ->orWhere('email', $user_id)
@@ -83,8 +85,35 @@ class UserValidation extends FormRequest
 
         if (!$user) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'login_id' => ['The provided credentials are incorrect.'],
             ]);
+        }
+    }
+
+    /**
+     * retailer can be created
+     * Only admin can create new or update existing user to Admin or Distributor
+     * @param [type] $user_type
+     * @return void
+     */
+    private function validate_user_type($user_type)
+    {
+        if (Auth::check()) {
+            $existing_type = Auth::user()->user_type;
+        } else {
+            $existing_type = 'guest';
+        }
+
+        if ($user_type == 'R' || $user_type == $existing_type) {
+            return true;
+        }
+        // todo UserType: need common function to get all user types
+        if (in_array($user_type, ['A', 'D'])) {
+            if (!Helper::user_is_admin()) {
+                throw ValidationException::withMessages([
+                    'user_type' => ['not valid value'],
+                ]);
+            }
         }
     }
 }

@@ -9,17 +9,20 @@ Route::POST('/signup', [UserController::class, 'signup']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::POST('/logout', [AuthController::class, 'logout']);
-    Route::POST('/update-password', [AuthController::class, 'updatePassword'])->can('admin');
-
+    Route::POST('/update-password', [AuthController::class, 'updatePassword']);
     // User Management
     Route::controller(UserController::class)->group(function () {
-        Route::GET('/users', 'index')->name('api.users')->can('get-all-users');
         Route::GET('/retailers', 'getRetailersList')->name('api.retailers')->can('get-all-retailers');
-        Route::GET('/distributors', 'getDistributorList')->name('api.distributor')->can('get-all-users');
         Route::POST('/user/update-profile/{user}', 'update')->name('api.update-profile')->can('update-profile', 'user');
-        Route::POST('/user/admin_updates/{user}', 'admin_updates')->name('api.admin_updates')->can('user-management');
+
+        Route::middleware('can:admin')->group(function () {
+            Route::GET('/users', 'index')->name('api.users');
+            Route::GET('/distributors', 'getDistributorList')->name('api.distributor');
+            Route::POST('/user/admin_updates/{user}', 'admin_updates')->name('api.admin_updates');
+        });
     });
 });
+
 
 
 Route::fallback(function () {

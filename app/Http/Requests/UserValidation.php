@@ -31,7 +31,7 @@ class UserValidation extends FormRequest
 
             //login
             'login_id' => 'required_if:action,login',
-            'password' => 'required_if:action,login',
+            'password' => 'required_if:action,login|prohibited_if:action,update',
             'login_id' => function ($attribute, $login_id) {
                 $this->validate_login_id($login_id);
             },

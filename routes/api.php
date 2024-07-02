@@ -8,7 +8,7 @@ Route::POST('/login', [AuthController::class, 'login'])->name('api.login');
 Route::POST('/signup', [UserController::class, 'signup']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-
+    Route::POST('/logout', [AuthController::class, 'logout']);
     Route::POST('/update-password', [AuthController::class, 'updatePassword'])->can('admin');
 
     // User Management

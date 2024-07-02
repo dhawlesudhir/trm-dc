@@ -24,17 +24,13 @@ class AppServiceProvider extends ServiceProvider
     {
 
         Gate::before(function ($user, $ability) {
-            if ($user->user_type == "A") {
+            if (in_array($user->user_type, ['A'])) {
                 return true;
             }
         });
 
-        Gate::define('get-all-users', function () {
-            return false;
-        });
-
-        Gate::define('user-management', function () {
-            return false;
+        Gate::define('admin', function (User $user) {
+            return $user->user_type == "A";
         });
 
         Gate::define('get-all-retailers', function (User $user) {
@@ -44,7 +40,5 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('update-profile', function (User $user, User $profile) {
             return $user->login_id == $profile->login_id;
         });
-
-        // Gate::define('get-all-retailers', [UserController::class, 'retailers']);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -75,5 +76,11 @@ class AuthController extends Controller
             Log::warning("User failed to update password!, LoginId {login_id}", ['login_id' => $login_id]);
             return response()->json(['status' => 'failed', 'message' => 'failed to update password!'], 400);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        return response()->json(['status' => 'success', 'message' => 'logout successfully!'], 200);
     }
 }

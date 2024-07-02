@@ -134,7 +134,6 @@ class UserController extends Controller
             if (count($fields) == 0) {
                 return response()->json(['status' => 'success', 'message' => 'There are nothing provided to update!'], 400);
             }
-            dd($fields);
             foreach ($fields as $key => $value) {
                 $user->$key = $value;
             }

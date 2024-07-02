@@ -9,7 +9,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -66,7 +65,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Undocumented function
+     * Attribute setter eg: 56 => RT0056
      *
      * @return Attribute
      */
@@ -76,8 +75,8 @@ class User extends Authenticatable
             set: function (string $value) {
 
                 $user_type_prefix = match ($this->user_type) {
-                    '1' => 'DT',
-                    '2' => 'RT',
+                    'D' => 'DT',
+                    'R' => 'RT',
                     default => 'NA',
                 };
 

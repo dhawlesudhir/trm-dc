@@ -12,28 +12,37 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
+            $table->comment('all users who can access application');
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('first_name', 40)->nullable(false);
+            $table->string('middle_name', 40)->nullable(true);
+            $table->string('last_name', 50)->nullable(true);
+            $table->date('dob')->nullable(true)->default(null)->comment('date of birth');
+
+            $table->string('email', 60)->nullable(true)->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('mobile', 60)->unique();
+            $table->string('login_id', 10)->unique();
+            $table->tinyInteger('service_type')->default(2)->comment("1:admin, 2:retailer, 3:distributor");
+
+            $table->string('password')->nullable(true);
             $table->rememberToken();
+
+            $table->tinyInteger('status')->default(4)->comment('4:new(registration), 1:active(basic document verified), 2:inactive(blocked login - any reason), 3:De-active(blocked)');
+            $table->string('refer_by')->nullable(false)->comment('other user or self/app/website or code');
+            $table->foreignId('relationship_manager')->nullable(true)->default(null)->comment('dedicated from org persona, for help');
+            //todo defined relationship
+            $table->foreignId('distributor')->nullable(true)->default(null);
+            $table->foreignId('subscription')->nullable(true)->default(null);
+            $table->foreignId('address_id')->nullable(true)->default(null);
+            $table->foreignId('kyc_id')->nullable(true)->default(null);
+
+
+            $table->index('relationship_manager');
+            $table->index('distributor');
+            $table->index('address_id');
+            $table->index('kyc_id');
             $table->timestamps();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
         });
     }
 
@@ -43,7 +52,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
     }
 };

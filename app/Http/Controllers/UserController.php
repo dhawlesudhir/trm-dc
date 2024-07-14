@@ -69,7 +69,7 @@ class UserController extends Controller
         // $user->map_cordinates =  $fields->map_cordinates ?? '';
         // $user->kyc_id =  0;
 
-        $user->service_type =  2;
+        $user->service_type =  $fields->service_type ?? 2;
         $user->refer_by =  $fields->refer_by ?? '';
         // $user->status = 0;
         //todo spellingcheck
@@ -95,7 +95,7 @@ class UserController extends Controller
             return response()->json($user);
         } else {
             $user = User::where('service_type', 2)
-                ->Where('distributor', $user->login_id)
+                ->Where('distributor', $user->id)
                 ->orWhere('refer_by', $user->login_id)
                 ->orWhere('refer_by', $user->id)
                 ->get();

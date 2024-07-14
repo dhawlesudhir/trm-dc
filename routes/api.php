@@ -16,6 +16,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::POST('/user/update-profile/{user}', 'update')->name('api.update-profile')->can('update-profile', 'user');
 
         Route::middleware('can:admin')->group(function () {
+            Route::POST('/signup_distributor', [UserController::class, 'signup']);
+
             Route::GET('/users', 'index')->name('api.users');
             Route::GET('/distributors', 'getDistributorList')->name('api.distributor');
             Route::POST('/user/admin_updates/{user}', 'admin_updates')->name('api.admin_updates');

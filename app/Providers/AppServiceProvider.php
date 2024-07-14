@@ -22,19 +22,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
         Gate::before(function ($user, $ability) {
-            if (in_array($user->user_type, ['A'])) {
+            if (in_array($user->service_type, [1])) {
                 return true;
             }
         });
 
         Gate::define('admin', function (User $user) {
-            return $user->user_type == "A";
+            return $user->service_type == 1;
         });
 
         Gate::define('get-all-retailers', function (User $user) {
-            return in_array($user->user_type, ['A', 'D', 'R']);
+            return in_array($user->service_type, [1, 2, 3]);
         });
 
         Gate::define('update-profile', function (User $user, User $profile) {

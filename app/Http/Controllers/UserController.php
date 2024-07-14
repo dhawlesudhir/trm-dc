@@ -88,13 +88,14 @@ class UserController extends Controller
 
     public function getRetailersList()
     {
+        //todo pagination and response formation
         $user = Auth::user();
         if (Helper::user_is_admin()) {
-            $user = User::where('user_type', 'R')->get();
+            $user = User::where('service_type', 2)->get();
             return response()->json($user);
         } else {
-            $user = User::where('user_type', 'R')
-                ->Where('distributor_or_rm', $user->login_id)
+            $user = User::where('service_type', 2)
+                ->Where('distributor', $user->login_id)
                 ->orWhere('refer_by', $user->login_id)
                 ->orWhere('refer_by', $user->id)
                 ->get();
@@ -104,7 +105,7 @@ class UserController extends Controller
 
     public function getDistributorList()
     {
-        $user = User::where('user_type', 'D')->get();
+        $user = User::where('service_type', 3)->get();
         return response()->json($user);
     }
 
@@ -160,16 +161,16 @@ class UserController extends Controller
             // 'refer_by' => 'required_if:action,signup|string|max:255',  // non changeable attribute
             'status' => 'sometimes|required|numeric|max:2147483647',
             'subcription' => 'sometimes|required|numeric|max:2147483647',
-            'distributor_or_rm' => 'sometimes|required|string|max:10',
-            'user_type' => 'sometimes|required|max:2'
+            'distributor' => 'sometimes|required|string|max:10',
+            'service_type' => 'sometimes|required|max:250|numeric',
         ]);
         // dd($request);
         $user->kyc_id = $request->kyc_id ?? $user->kyc_id;
         // $user->refer_by =  $request->refer_by  ; // non changeable attribute
         $user->status = $request->status ?? $user->status;
-        $user->subcription = $request->subcription ?? $user->subcription;
-        $user->distributor_or_rm = $request->distributor_or_rm ?? $user->distributor_or_rm;
-        $user->user_type = $request->user_type ?? $user->user_type;
+        $user->subscription = $request->subscription ?? $user->subscription;
+        $user->distributor = $request->distributor ?? $user->distributor;
+        $user->service_type = $request->service_type ?? $user->service_type;
 
         if ($user->isClean()) {
             return response()->json(['status' => 'failed', 'message' => 'There are nothing provided to update!'], 400);
@@ -181,7 +182,7 @@ class UserController extends Controller
                     ['id' => $user->login_id, 'new_values' => $request->all()]
                 );
 
-                //todo SECURITY:if new admin or any higher user_type updated , alert system and hault transactions
+                //todo SECURITY:if new admin or any higher service_type updated , alert system and hault transactions
 
                 return response()->json(['status' => 'success', 'message' => 'User data updated successful!'], 200);
             } else {

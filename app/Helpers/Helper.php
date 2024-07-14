@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class Helper
 {
@@ -16,9 +17,10 @@ class Helper
 
     public static function user_is_admin(): bool
     {
+        Log::info(Auth::user());
         if (Auth::check()) {
             $user = Auth::user();
-            return $user->user_type == 'A';
+            return $user->service_type == 1;
         } else {
             return false;
         }

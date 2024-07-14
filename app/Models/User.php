@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Log;
+// use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -39,7 +41,7 @@ class User extends Authenticatable
         // "state",
         // "map_cordinates",
         "kyc_id",
-        // "user_type",
+        // "service_type",
         // "refer_by",
         // "status",
         // "subcription",
@@ -58,6 +60,7 @@ class User extends Authenticatable
      */
     protected function casts(): array
     {
+        // $value = Hash::make($this->password);
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
@@ -73,14 +76,14 @@ class User extends Authenticatable
     {
         return Attribute::make(
             set: function (string $value) {
-
-                $user_type_prefix = match ($this->service_type) {
-                    3 => 'DT',
+                $service_type_prefix = match ((int) $this->service_type) {
+                    1 => 'AD',
                     2 => 'RT',
+                    3 => 'DT',
                     default => 'NA',
                 };
 
-                return $user_type_prefix . str_pad($value, strlen($value) + 2, '0', STR_PAD_LEFT);
+                return $service_type_prefix . str_pad($value, strlen($value) + 2, '0', STR_PAD_LEFT);
             }
         );
     }

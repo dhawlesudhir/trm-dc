@@ -61,7 +61,7 @@ class UserValidation extends FormRequest
 
             //update
 
-            'user_type' => Rule::prohibitedIf(!Helper::user_is_admin()),
+            'service_type' => Rule::prohibitedIf(!Helper::user_is_admin()),
             'kyc_id' => Rule::prohibitedIf(!Helper::user_is_admin()),
             'refer_by' => 'prohibited_if:action,update',
             'status' => Rule::prohibitedIf(!Helper::user_is_admin()),
@@ -94,25 +94,25 @@ class UserValidation extends FormRequest
     /** // currently not required (CNR)
      * retailer can be created
      * Only admin can create new or update existing user to Admin or Distributor
-     * @param [type] $user_type
+     * @param [type] $service_type
      * @return void
      */
-    // private function validate_user_type($user_type)
+    // private function validate_service_type($service_type)
     // {
     //     if (Auth::check()) {
-    //         $existing_type = Auth::user()->user_type;
+    //         $existing_type = Auth::user()->service_type;
     //     } else {
     //         $existing_type = 'guest';
     //     }
 
-    //     if ($user_type == 'R' || $user_type == $existing_type) {
+    //     if ($service_type == 'R' || $service_type == $existing_type) {
     //         return true;
     //     }
     //     // todo UserType: need common function to get all user types
-    //     if (in_array($user_type, ['A', 'D'])) {
+    //     if (in_array($service_type, ['A', 'D'])) {
     //         if (!Helper::user_is_admin()) {
     //             throw ValidationException::withMessages([
-    //                 'user_type' => ['not valid value'],
+    //                 'service_type' => ['not valid value'],
     //             ]);
     //         }
     //     }

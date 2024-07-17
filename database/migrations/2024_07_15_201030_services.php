@@ -15,8 +15,10 @@ return new class extends Migration
             $table->comment("all services and service providers");
             $table->id();
             $table->string("service_name", 50)->nullable(false);
+            $table->string("service_desc", 100)->nullable(false)->comment('about service');
             $table->string("service_provider", 100)->nullable(false);
-            $table->string("operator/bank", 50)->nullable(false);
+            $table->string("operator_or_bank_name", 50)->nullable(false);
+            $table->string("operator_desc", 100)->nullable(false)->comment('about service');
             $table->set("active", ["true", "false"])->default("false")->nullable(false);
             $table->string("service_provider_code", 50)->nullable(false)->comment("provided by Service_provider");
 

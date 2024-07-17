@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->comment("all services and service providers");
             $table->id();
-            $table->string("service_name", 50)->nullable(false);
+            $table->string("service_name", 50)->nullable(false)->comment("recharge,DMT,fund transfer,billpay ...");
             $table->string("service_desc", 100)->nullable(false)->comment('about service');
+            $table->string("service_type", 50)->nullable(false)->comment("prepaid,postpaid,verification,money transfer,credit/debit,landline,broadband ...");;
             $table->string("service_provider", 100)->nullable(false);
             $table->string("operator_or_bank_name", 50)->nullable(false);
-            $table->string("operator_desc", 100)->nullable(false)->comment('about service');
+            $table->string("operator_desc", 100)->nullable(false)->comment('about operator or bank');
             $table->set("active", ["true", "false"])->default("false")->nullable(false);
             $table->string("service_provider_code", 50)->nullable(false)->comment("provided by Service_provider");
 

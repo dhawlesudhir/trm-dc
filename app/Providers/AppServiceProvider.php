@@ -28,9 +28,9 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('admin', function (User $user) {
-            return $user->service_type == 1;
-        });
+        // Gate::define('admin', function (User $user) {
+        //     return $user->service_type == 1;
+        // });
 
         Gate::define('get-all-retailers', function (User $user) {
             return in_array($user->service_type, [1, 2, 3]);

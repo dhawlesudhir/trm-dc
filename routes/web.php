@@ -11,5 +11,6 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::fallback(function () {
-    return "Not a valid request";
+    // todo:invalid request view
+    return view('invalid');
 });

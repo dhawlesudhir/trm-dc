@@ -17,9 +17,7 @@ class Helper
 
     public static function user_is_admin(): bool
     {
-        Log::info(Auth::user());
-        if (Auth::check()) {
-            $user = Auth::user();
+        if ($user = Auth::user()) {
             return $user->service_type == 1;
         } else {
             return false;

@@ -12,7 +12,7 @@ class ServiceSeeder extends Seeder
      */
     public function run(): void
     {
-        Service::create([
+        Service::updateOrCreate([
             "service_name" => 'recharge',
             "service_code" => 'RCH',
             "service_desc" => 'mobile/dth recharges',
@@ -31,26 +31,26 @@ class ServiceSeeder extends Seeder
             "handler" => 'AmbikaAPI',
         ]);
 
-        Service::create([
+        Service::updateOrCreate([
             "service_name" => 'recharge',
-            "service_code" => 'RCH',
-            "service_desc" => 'mobile/dth recharges',
-            "service_type" => 'dth',
+            "service_code" => 'PAY',
+            "service_desc" => 'mobile/dth billPayment',
+            "service_type" => 'postpaid',
             "service_provider" => 'ambika',
-            "operator_or_bank_name" => 'airtel DTH',
-            "operator_desc" => 'airtel tv recharge',
+            "operator_or_bank_name" => 'airtel',
+            "operator_desc" => 'airtel postpaid',
             "active" => 'true',
-            "service_provider_code" => 'airtv',
-            "commission" => '2',
+            "service_provider_code" => 'airtelb',
+            "commission" => '0.5',
             "com_type" => '%',
-            "com_origin" => '2.5',
+            "com_origin" => '.8',
             "subscription_id" => null,
             "backup" => 0,
             "alternative" => 0,
             "handler" => 'AmbikaAPI',
         ]);
 
-        Service::create([
+        Service::updateOrCreate([
             "service_name" => 'recharge',
             "service_code" => 'RCH',
             "service_desc" => 'mobile/dth recharges',
@@ -67,6 +67,25 @@ class ServiceSeeder extends Seeder
             "backup" => 0,
             "alternative" => 0,
             "handler" => 'AmbikaAPI',
+        ]);
+
+        Service::updateOrCreate([
+            "service_name" => 'dmt',
+            "service_code" => 'DMT',
+            "service_desc" => 'domestic money tranfer',
+            "service_type" => 'IMPS',
+            "service_provider" => 'Ibizz',
+            "operator_or_bank_name" => 'NA',
+            "operator_desc" => 'NA',
+            "active" => 'true',
+            "service_provider_code" => 'NA',
+            "commission" => '-0.6',
+            "com_type" => '%',
+            "com_origin" => '-0.15',
+            "subscription_id" => null,
+            "backup" => 0,
+            "alternative" => 0,
+            "handler" => 'IBizzAPI',
         ]);
     }
 }

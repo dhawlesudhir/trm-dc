@@ -21,12 +21,13 @@ return new class extends Migration
             $table->string("mobile_account", 50)->comment("mobile/account/landline number");
             $table->foreignIdFor(Service::class);
             $table->decimal("amount", 8, 2);
+            $table->string("customer_name", 30)->nullable(true)->comment("customer name for user reference and should be masked display");
             $table->decimal("commission", 8, 2)->comment("service.commission of amount");
             $table->decimal("sp_commission", 8, 2)->comment("service.comm_origin of amount");
             $table->decimal("sp_bal", 8, 2)->comment("balance at SP side");
             $table->foreignId("status_id");
             $table->string("description")->nullable(true)->comment("internal use");
-            $table->string("customer_name", 30)->nullable(true)->comment("customer name for user reference and should be masked display");
+            $table->ipAddress("ip")->nullable(true)->comment("IP of request");
             $table->timestamp("refund_at")->nullable(true);
             $table->timestamps();
         });

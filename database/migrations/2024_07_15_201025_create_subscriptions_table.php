@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('id');
             $table->string("plan_name")->default('base')->comment("base, medium, super, prime");
             $table->string("service_name")->comment("service->service_name");
-            $table->string("operator/bank");
+            $table->string("operator_or_bank");
             $table->decimal("commission", 8, 2)->default(00.0)->nullable(false);
             $table->set("com_type", ['%', 'fixed'])->default('%')->nullable(false);
             $table->softDeletes("deleted_at");

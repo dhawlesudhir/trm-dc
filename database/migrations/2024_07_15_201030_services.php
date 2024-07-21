@@ -15,6 +15,7 @@ return new class extends Migration
             $table->comment("all services and service providers");
             $table->id();
             $table->string("service_name", 50)->nullable(false)->comment("recharge,DMT,fund transfer,billpay ...");
+            $table->string("service_code", 10)->nullable(false)->comment("can use to identify service");
             $table->string("service_desc", 100)->nullable(false)->comment('about service');
             $table->string("service_type", 50)->nullable(false)->comment("prepaid,postpaid,verification,money transfer,credit/debit,landline,broadband ...");;
             $table->string("service_provider", 100)->nullable(false);
@@ -28,7 +29,7 @@ return new class extends Migration
             $table->decimal("com_origin", 8, 2)->default(00.0)->nullable(false);
 
             //todo:relation with Subscription
-            $table->foreignUuid("subscription_id")->constrained();
+            $table->foreignUuid("subscription_id")->nullable(true);
             // $table->foreignUuid("subscription_id")->nullable(true);
 
             $table->boolean('backup')->default(false)->nullable(false)->comment("if all service_provider failed Then finally use backup SP");

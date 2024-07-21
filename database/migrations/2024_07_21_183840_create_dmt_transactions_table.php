@@ -29,7 +29,7 @@ return new class extends Migration
             $table->decimal("gst_amount", 8, 2)->nullable(true);
             $table->decimal("commission", 8, 2)->comment("service.commission of amount");
             $table->decimal("sp_commission", 8, 2)->comment("service.comm_origin of amount");
-            $table->decimal("sp_bal", 8, 2)->comment("balance at SP side");
+            $table->decimal("sp_bal", 15, 2)->comment("balance at SP side");
 
             $table->string("internal_description", 100)->nullable(true)->comment("internal use");
 

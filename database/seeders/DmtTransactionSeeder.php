@@ -13,10 +13,10 @@ class DmtTransactionSeeder extends Seeder
      */
     public function run(): void
     {
-        DmtTransaction::created([
+        DmtTransaction::create([
             'user_id' => 1,
             'own_ref_number' => rand(11589, 7895414),
-            'service_id' => 1,
+            'service_id' => 4,
             'service_provider_ref_number' => rand(11589, 7895414),
             'customer_id' => 1,
             'beneficiary_id' => 1,

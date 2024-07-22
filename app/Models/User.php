@@ -87,6 +87,37 @@ class User extends Authenticatable
             }
         );
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function dmt_transactions()
+    {
+        return $this->hasMany(DmtTransaction::class);
+    }
+
+    public function dmt_customers()
+    {
+        return $this->hasMany(DmtCustomer::class);
+    }
+
+    public function dmt_beneficiaries()
+    {
+        return $this->hasMany(DmtBeneficiary::class);
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class)->where('active', 1);
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
     // currently not required (CNR)
     // public function getNextId()
     // {

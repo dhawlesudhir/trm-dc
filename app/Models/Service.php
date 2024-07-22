@@ -22,4 +22,14 @@ class Service extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function dmt_transactions()
+    {
+        return $this->hasMany(DmtTransaction::class);
+    }
 }

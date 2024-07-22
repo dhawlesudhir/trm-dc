@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +22,12 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SubscriptionSeeder::class,
             ServiceSeeder::class,
+            BankSeeder::class,
+            AddressSeeder::class,
+            DmtCustomerSeeder::class,
+            DmtBeneficiarySeeder::class,
+            TransactionSeeder::class,
+            LedgerSeeder::class,
         ]);
     }
 }

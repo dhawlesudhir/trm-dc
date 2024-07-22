@@ -18,4 +18,9 @@ class DmtTransaction extends Model
     //         get: fn () => Service::find($this->service_id)->service_code . str_pad($this->id, strlen($this->id) + 2, '0', STR_PAD_LEFT),
     //     );
     // }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
 }

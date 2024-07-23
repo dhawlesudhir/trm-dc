@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\Helper;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminOnlyRoutes
@@ -16,7 +18,7 @@ class AdminOnlyRoutes
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() and Auth::user()->service_type != 1) {
+        if (!Helper::user_is_admin()) {
             return redirect("api/invalid");
         }
 

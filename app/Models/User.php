@@ -16,6 +16,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
 
+    static $ADMIN = 1;
+    static $RETAILER = 2;
+    static $DISTRIBUTOR = 3;
+
     /**
      * The attributes that are mass assignable.
      *

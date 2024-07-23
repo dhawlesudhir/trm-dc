@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean('verified')->default(false);
             $table->foreignIdFor(User::class);
             $table->decimal("amt", 10, 2)->comment("life amount");
-            $table->softDeletes(User::class);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

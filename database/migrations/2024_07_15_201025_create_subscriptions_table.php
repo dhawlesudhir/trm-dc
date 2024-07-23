@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("operator_or_bank");
             $table->decimal("commission", 8, 2)->default(00.0)->nullable(false);
             $table->set("com_type", ['%', 'fixed'])->default('%')->nullable(false);
-            $table->softDeletes("deleted_at");
+            $table->softDeletes();
             $table->timestamps();
 
             $table->primary('id');

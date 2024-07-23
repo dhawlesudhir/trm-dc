@@ -37,7 +37,7 @@ return new class extends Migration
 
             $table->string("handler", 100)->nullable(true);
 
-            $table->softDeletes('deleted_at');
+            $table->softDeletes();
             $table->timestamps();
 
             //todo: make login to achieve composite key or uniqueness combined [service_name,operator/bank,active(true)]

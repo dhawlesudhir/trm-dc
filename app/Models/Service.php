@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\traits\ModelHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
     use HasFactory;
+    use ModelHelper;
+
+
     protected $hidden = [
         'com_origin',
         'backup',

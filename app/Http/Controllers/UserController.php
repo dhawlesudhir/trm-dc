@@ -69,7 +69,7 @@ class UserController extends Controller
         // $user->map_cordinates =  $fields->map_cordinates ?? '';
         // $user->kyc_id =  0;
 
-        $user->service_type =  $fields->service_type ?? 2;
+        $user->service_type =  $fields->service_type ?? User::$RETAILER;
         $user->refer_by =  $fields->refer_by ?? '';
         // $user->status = 0;
         //todo spellingcheck
@@ -91,21 +91,21 @@ class UserController extends Controller
         //todo pagination and response formation
         $user = Auth::user();
         if (Helper::user_is_admin()) {
-            $user = User::where('service_type', 2)->get();
-            return response()->json($user);
+            $users = User::where('service_type', User::$RETAILER)->get();
         } else {
-            $user = User::where('service_type', 2)
+            $users = User::where('service_type', User::$RETAILER)
                 ->Where('distributor', $user->id)
                 ->orWhere('refer_by', $user->login_id)
                 ->orWhere('refer_by', $user->id)
                 ->get();
-            return response()->json($user);
         }
+
+        return response()->json($users);
     }
 
     public function getDistributorList()
     {
-        $user = User::where('service_type', 3)->get();
+        $user = User::where('service_type', User::$DISTRIBUTOR)->get();
         return response()->json($user);
     }
 

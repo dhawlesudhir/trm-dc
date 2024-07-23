@@ -81,9 +81,9 @@ class User extends Authenticatable
         return Attribute::make(
             set: function (string $value) {
                 $service_type_prefix = match ((int) $this->service_type) {
-                    1 => 'AD',
-                    2 => 'RT',
-                    3 => 'DT',
+                    User::$ADMIN => 'AD',
+                    User::$RETAILER => 'RT',
+                    User::$DISTRIBUTOR => 'DT',
                     default => 'NA',
                 };
 

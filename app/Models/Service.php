@@ -11,6 +11,7 @@ class Service extends Model
     use HasFactory;
     use ModelHelper;
 
+    public static $DMT_SERVICE_TYPE = 4;
 
     protected $hidden = [
         'com_origin',
@@ -30,10 +31,5 @@ class Service extends Model
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
-    }
-
-    public function dmt_transactions()
-    {
-        return $this->hasMany(DmtTransaction::class);
     }
 }

@@ -2,10 +2,7 @@
 
 namespace App\traits;
 
-use App\Models\DmtBeneficiary;
-use App\Models\DmtCustomer;
 use App\Models\Service;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 trait ModelHelper
 {
@@ -30,6 +27,7 @@ trait ModelHelper
             'App\Models\DmtCustomer' => 'BNFC',
             'App\Models\Ledger' => 'TRN',
             'App\Models\Service' => 'SERVE',
+            'App\Models\FundTransfer' => 'FUND',
             default => null
         };
     }

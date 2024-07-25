@@ -21,9 +21,6 @@ class User extends Model
     public static $RETAILER = 'retailer';
     public static $DISTRIBUTOR = 'distributor';
 
-    protected $attributes = [
-        'service_type_name'
-    ];
 
     /**
      * The attributes that are mass assignable.

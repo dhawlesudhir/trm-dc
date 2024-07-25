@@ -17,8 +17,8 @@ return new class extends Migration
         Schema::create('ledgers', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Transaction::class);
-            $table->set("type", ['debit', 'credit'])->comment("amount is debited or credited");
+            $table->foreignIdFor(Transaction::class)->comment("id frim transaction/fund_tranfer/...");
+            $table->string("type", 10)->comment("amount is 'debit', 'credit' - debited or credited");
             $table->decimal("amount", 8, 2)->comment("transaction amount");
             $table->decimal("balance", 8, 2)->comment("balance after transaction");
             $table->foreignIdFor(Service::class)->comment("details of transaction like account,name ...");

@@ -24,4 +24,13 @@ class Helper
             return false;
         }
     }
+
+    public static function serviceTypeName($service_type)
+    {
+        return match ($service_type) {
+            User::$ADMIN_TYPE => User::$ADMIN,
+            User::$RETAILER_TYPE => User::$RETAILER,
+            User::$DISTRIBUTOR_TYPE => User::$DISTRIBUTOR,
+        };
+    }
 }

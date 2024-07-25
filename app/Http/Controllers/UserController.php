@@ -69,7 +69,7 @@ class UserController extends Controller
         // $user->map_cordinates =  $fields->map_cordinates ?? '';
         // $user->kyc_id =  0;
 
-        $user->service_type =  $fields->service_type ?? User::$RETAILER;
+        $user->service_type =  $fields->service_type ?? User::$RETAILER_TYPE;
         $user->refer_by =  $fields->refer_by ?? '';
         // $user->status = 0;
         //todo spellingcheck
@@ -91,9 +91,9 @@ class UserController extends Controller
         //todo pagination and response formation
         $user = Auth::user();
         if (Helper::user_is_admin()) {
-            $users = User::where('service_type', User::$RETAILER)->get();
+            $users = User::where('service_type', User::$RETAILER_TYPE)->get();
         } else {
-            $users = User::where('service_type', User::$RETAILER)
+            $users = User::where('service_type', User::$RETAILER_TYPE)
                 ->Where('distributor', $user->id)
                 ->orWhere('refer_by', $user->login_id)
                 ->orWhere('refer_by', $user->id)
@@ -105,7 +105,7 @@ class UserController extends Controller
 
     public function getDistributorList()
     {
-        $user = User::where('service_type', User::$DISTRIBUTOR)->get();
+        $user = User::where('service_type', User::$DISTRIBUTOR_TYPE)->get();
         return response()->json($user);
     }
 
@@ -154,7 +154,7 @@ class UserController extends Controller
     /**
      *
      */
-    public function admin_updates(Request $request, User $user)
+    public function adminUpdates(Request $request, User $user)
     {
         $request->validate([
             'kyc_id' => 'sometimes|required|numeric|max:2147483647',
@@ -190,5 +190,15 @@ class UserController extends Controller
                 return response()->json(['status' => 'failed', 'message' => 'User data updation failed!'], 400);
             }
         }
+    }
+
+    public function myFundRequests()
+    {
+        return Auth::user()->fund_requests;
+    }
+
+    public function myFundApprovals()
+    {
+        return Auth::user()->approval_requests;
     }
 }

@@ -2,23 +2,28 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
+use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Support\Facades\Log;
-// use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Authenticatable
+class User extends Model
 {
     use HasFactory, Notifiable, HasApiTokens;
 
-    static $ADMIN = 1;
-    static $RETAILER = 2;
-    static $DISTRIBUTOR = 3;
+    public static $ADMIN_TYPE = 1;
+    public static $RETAILER_TYPE = 2;
+    public static $DISTRIBUTOR_TYPE = 3;
+    public static $ADMIN = 'admin';
+    public static $RETAILER = 'retailer';
+    public static $DISTRIBUTOR = 'distributor';
+
+    protected $attributes = [
+        'service_type_name'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -37,24 +42,24 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        "id",
+        'id',
         'password',
+        'middle_name',
         'remember_token',
-        // "city_region",
-        // "geography_region",
-        // "state",
-        // "map_cordinates",
+        "dob",
+        "email",
+        "mobile",
+        "login_id",
         "kyc_id",
-        // "service_type",
-        // "refer_by",
-        // "status",
-        // "subcription",
-        // "distributor_or_rm",
-        // "alt_mobile",
-        // "office_number",
+        "refer_by",
+        "relationship_manager",
+        "subscription",
+        "address_id",
+        "status",
+        "distributor",
         "email_verified_at",
-        // "created_at",
-        // "updated_at"
+        "created_at",
+        "updated_at"
     ];
 
     /**
@@ -67,7 +72,7 @@ class User extends Authenticatable
         // $value = Hash::make($this->password);
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password' => 'hashed'
         ];
     }
 
@@ -81,14 +86,27 @@ class User extends Authenticatable
         return Attribute::make(
             set: function (string $value) {
                 $service_type_prefix = match ((int) $this->service_type) {
-                    User::$ADMIN => 'AD',
-                    User::$RETAILER => 'RT',
-                    User::$DISTRIBUTOR => 'DT',
+                    User::$ADMIN_TYPE => 'AD',
+                    User::$RETAILER_TYPE => 'RT',
+                    User::$DISTRIBUTOR_TYPE => 'DT',
                     default => 'NA',
                 };
 
                 return $service_type_prefix . str_pad($value, strlen($value) + 2, '0', STR_PAD_LEFT);
             }
+        );
+    }
+
+    /**
+     * accessor to get service name using service_type
+     * dummy field service_type_name to share response
+     *
+     * @return Attribute
+     */
+    protected function serviceType(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Helper::serviceTypeName($value),
         );
     }
 
@@ -99,15 +117,15 @@ class User extends Authenticatable
 
     public function dmt_transactions()
     {
-        return $this->hasMany(DmtTransaction::class);
+        return $this->hasMany(Transaction::class)->where('service_id', 4);
     }
 
-    public function dmt_customers()
+    public function dmtCustomers()
     {
         return $this->hasMany(DmtCustomer::class);
     }
 
-    public function dmt_beneficiaries()
+    public function dmtBeneficiaries()
     {
         return $this->hasMany(DmtBeneficiary::class);
     }
@@ -120,6 +138,16 @@ class User extends Authenticatable
     public function addresses()
     {
         return $this->hasMany(Address::class);
+    }
+
+    public function fundRequests(): HasMany
+    {
+        return $this->hasMany(FundTransfer::class);
+    }
+
+    public function approvalRequests(): HasMany
+    {
+        return $this->hasMany(FundTransfer::class, 'approval_id');
     }
 
     // currently not required (CNR)

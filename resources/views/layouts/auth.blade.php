@@ -6,9 +6,26 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>@yield('title','default title')</title>
-    @include('componets.boostrap-head')
-    @stack('head-content')
+    <title>@yield('title','Welcome to TheRechargeMart')</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+
+    <link rel="icon" href="{{ Vite::asset('resources/img/favicons/favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+    <link href="{{asset('vendors/simplebar/simplebar.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+
+    <script src="{{ Vite::asset('resources/assets/js/config.js')}}"></script>
+
+    @yield('styles')
+
+    @vite([
+        'resources/assets/css/theme.css',
+        'resources/assets/css/user.css',
+        // 'resources/assets/js/bootstrap-config.js',
+    ])
 </head>
 <body>
     <!-- ===============================================-->
@@ -19,7 +36,6 @@
         @include('componets.chat')
     </main>
 
-    @section('scripts')
         <!-- ===============================================-->
         <!--    JavaScripts-->
         <!-- ===============================================-->
@@ -32,8 +48,7 @@
         <script src="{{Vite::asset('vendors/list.js/list.min.js')}}"></script>
         <script src="{{Vite::asset('vendors/feather-icons/feather.min.js')}}"></script>
         <script src="{{Vite::asset('vendors/dayjs/dayjs.min.js')}}"></script>
-    @show
-
-    @yield('body-scripts')
+        @yield('scripts')
+        @stack('scripts')
 </body>
 </html>

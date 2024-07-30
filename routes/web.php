@@ -34,15 +34,21 @@ Route::get('/2FA-auth', function () {
     return view('auth.2FA');
 })->name('2FA-auth');
 
+
+
+// Features routes
+
 Route::get('/dashboard', function () {
     return view('dashboard.main');
 })->name('dashboard');
 
-// Route::get('/login', function () {
-//     return "please login first";
-// })->name('login');
+Route::get('/mobile/recharge', function () {
+    return view('pages.mobile-recharge');
+})->name('mobile-recharge');
+
+
 
 Route::fallback(function () {
     // todo:invalid request view
-    return view('invalid', '', 404);
+    return view('invalid', [], [404]);
 });

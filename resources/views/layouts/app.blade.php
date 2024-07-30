@@ -1,39 +1,44 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title','default title')</title>
+@extends('layouts.layout')
 
-    @include('componets.boostrap-head')
-    @stack('head-content')
-</head>
-<body>
+@section('navigationType', 'data-navigation-type=combo')
+@section('navbarShape', 'data-navbar-horizontal-shape=slim')
 
-    <main class="main" id="top">
-        @include('layouts.navbar-horizontal')
+@section('styles')
+    {{-- unused as per coverage tool --}}
+    {{-- <link href="{{Vite::asset('vendors/choices/choices.min.css')}}" rel="stylesheet"> --}}
+    {{-- <link href="{{Vite::asset('vendors/dhtmlx-gantt/dhtmlxgantt.css')}}" rel="stylesheet"> --}}
+    {{-- <link href="{{Vite::asset('vendors/flatpickr/flatpickr.min.css')}}" rel="stylesheet"> --}}
 
-        @yield('content')
+    <link href="{{Vite::asset('vendors/simplebar/simplebar.min.css')}}" rel="stylesheet">
+    {{-- unused as per coverage tool --}}
+    {{-- <link href="{{Vite::asset('resources/assets/css/theme-rtl.min.css')}}" type="text/')}}" rel="stylesheet" id="style-rtl"> --}}
+    {{-- <link href="{{Vite::asset('resources/assets/css/theme.min.css')}}" type="text/')}}" rel="stylesheet" id="style-default"> --}}
+    {{-- <link href="{{Vite::asset('resources/assets/css/user-rtl.min.css')}}" type="text/')}}" rel="stylesheet" id="user-style-rtl"> --}}
+    {{-- <link href="{{Vite::asset('resources/assets/css/user.min.css')}}" type="text/')}}" rel="stylesheet" id="user-style-default"> --}}
 
-        @include('componets.chat')
-        @include('layouts.footer')
-    </main>
+@endsection
 
-    @section('scripts')
-        <!-- ===============================================-->
-        <!--    JavaScripts-->
-        <!-- ===============================================-->
-        <script src="{{Vite::asset('vendors/popper/popper.min.js')}}"></script>
-        <script src="{{Vite::asset('vendors/bootstrap/bootstrap.min.js')}}"></script>
-        <script src="{{Vite::asset('vendors/anchorjs/anchor.min.js')}}"></script>
-        <script src="{{Vite::asset('vendors/is/is.min.js')}}"></script>
-        <script src="{{Vite::asset('vendors/fontawesome/all.min.js')}}"></script>
-        <script src="{{Vite::asset('vendors/lodash/lodash.min.js')}}"></script>
-        <script src="{{Vite::asset('vendors/list.js/list.min.js')}}"></script>
-        <script src="{{Vite::asset('vendors/feather-icons/feather.min.js')}}"></script>
-        <script src="{{Vite::asset('vendors/dayjs/dayjs.min.js')}}"></script>
-    @show
+@section('navbar')
+    @include('navbars.horizontal-slim')
+@endsection
 
-    @yield('body-scripts')
-</body>
-</html>
+@section('scripts')
+    <script>
+        window.config.set({
+            phoenixNavbarTopStyle: 'darker'
+        });
+    </script>
+    <script>
+        var navbarTopStyle = window.config.config.phoenixNavbarTopStyle;
+        var navbarTop = document.querySelector('.navbar-top');
+        if (navbarTopStyle === 'darker') {
+        navbarTop.setAttribute('data-navbar-appearance', 'darker');
+        }
+
+        var navbarVerticalStyle = window.config.config.phoenixNavbarVerticalStyle;
+        var navbarVertical = document.querySelector('.navbar-vertical');
+        if (navbarVertical && navbarVerticalStyle === 'darker') {
+        navbarVertical.setAttribute('data-navbar-appearance', 'darker');
+        }
+  </script>
+@endsection

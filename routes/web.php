@@ -30,6 +30,10 @@ Route::get('/locked-screen', function () {
     return view('auth.locked-screen');
 })->name('locked-screen');
 
+Route::get('/2FA-auth', function () {
+    return view('auth.2FA');
+})->name('2FA-auth');
+
 Route::get('/dashboard', function () {
     return view('dashboard.main');
 })->name('dashboard');
@@ -40,5 +44,5 @@ Route::get('/dashboard', function () {
 
 Route::fallback(function () {
     // todo:invalid request view
-    return view('invalid');
+    return view('invalid', '', 404);
 });

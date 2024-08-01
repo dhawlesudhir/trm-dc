@@ -390,29 +390,40 @@
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle lh-1" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"><span class="uil fs-8 me-2 uil-files-landscapes-alt"></span>Reports</a>
           <ul class="dropdown-menu navbar-dropdown-caret">
             {{-- <li><a class="dropdown-item" href="../pages/starter.html">
-                <div class="dropdown-item-wrapper"><span class="me-2 uil" data-feather="compass"></span>Ledger
+                <div class="dropdown-item-wrapper"><span class="me-2 uil" data-feather="compass"></span>Statement
+                </div>
+              </a>
+            </li> --}}
+            {{-- <li><a class="dropdown-item" href="../pages/timeline.html">
+                <div class="dropdown-item-wrapper"><span class="me-2 uil" data-feather="clock"></span>Activities
                 </div>
               </a>
             </li> --}}
 
+            <li><a class="dropdown-item" href="../pages/timeline.html">
+                <div class="dropdown-item-wrapper"><span class="me-2 uil" data-feather="clock"></span>Invoices
+                </div>
+              </a>
+            </li>
+
             <li class="dropdown"><a class="dropdown-item dropdown-toggle" id="faq" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                <div class="dropdown-item-wrapper"><span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="help-circle"></span>Faq</span></div>
+                <div class="dropdown-item-wrapper"><span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="help-circle"></span>Profits</span></div>
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="../pages/faq/faq-accordion.html">
-                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>Faq accordion
+                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>P&L
                     </div>
                   </a>
                 </li>
                 <li><a class="dropdown-item" href="../pages/faq/faq-tab.html">
-                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>Faq tab
+                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>Tax P&L
                     </div>
                   </a>
                 </li>
               </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-item dropdown-toggle" id="landing" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                <div class="dropdown-item-wrapper"><span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="globe"></span>Landing</span></div>
+            {{-- <li class="dropdown"><a class="dropdown-item dropdown-toggle" id="landing" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                <div class="dropdown-item-wrapper"><span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="globe"></span>Invoices</span></div>
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="../pages/landing/default.html">
@@ -426,40 +437,63 @@
                   </a>
                 </li>
               </ul>
+            </li> --}}
+
+            <li class="dropdown"><a class="dropdown-item dropdown-toggle" id="travel-agency" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                <div class="dropdown-item-wrapper"><span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="briefcase"></span>Taxes</span></div>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="../apps/travel-agency/landing.html">
+                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>TDS
+                    </div>
+                  </a>
+                </li>
+
+
+                <li><a class="dropdown-item" id="admin" href="#">
+                    <div class="dropdown-item-wrapper"><span><span class="me-2 uil"></span>GST</span></div>
+                  </a>
+                </li>
+
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" id="hotel" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+                    <div class="dropdown-item-wrapper"><span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil"></span>Request</span></div>
+                  </a>
+                  <ul class="dropdown-menu">
+
+                    <li><a class="dropdown-item" id="admin" href="#">
+                        <div class="dropdown-item-wrapper"><span><span class="me-2 uil"></span>Form 16</span></div>
+                      </a>
+                    </li>
+
+                    <li><a class="dropdown-item" id="customer" href="#" >
+                        <div class="dropdown-item-wrapper"><span><span class="me-2 uil"></span>ITR Filing</span></div>
+                      </a>
+                    </li>
+
+                  </ul>
+                </li>
+
+              </ul>
             </li>
 
 
-            <li><a class="dropdown-item" href="../pages/notifications.html">
-                <div class="dropdown-item-wrapper"><span class="me-2 uil" data-feather="bell"></span>Notifications
-                </div>
-              </a>
-            </li>
-            <li><a class="dropdown-item" href="../pages/members.html">
-                <div class="dropdown-item-wrapper"><span class="me-2 uil" data-feather="users"></span>Members
-                </div>
-              </a>
-            </li>
-            <li><a class="dropdown-item" href="../pages/timeline.html">
-                <div class="dropdown-item-wrapper"><span class="me-2 uil" data-feather="clock"></span>Timeline
-                </div>
-              </a>
-            </li>
+
             <li class="dropdown"><a class="dropdown-item dropdown-toggle" id="errors" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
-                <div class="dropdown-item-wrapper"><span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="alert-triangle"></span>Errors</span></div>
+                <div class="dropdown-item-wrapper"><span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="users"></span>Refferals</span></div>
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="../pages/errors/404.html">
-                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>404
+                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>All
                     </div>
                   </a>
                 </li>
                 <li><a class="dropdown-item" href="../pages/errors/403.html">
-                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>403
+                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>Retailers
                     </div>
                   </a>
                 </li>
                 <li><a class="dropdown-item" href="../pages/errors/500.html">
-                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>500
+                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>Distributors
                     </div>
                   </a>
                 </li>
@@ -470,6 +504,11 @@
                 <div class="dropdown-item-wrapper"><span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="layout"></span>Commissions</span></div>
               </a>
               <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="../demo/sidenav-collapse.html">
+                    <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>All services
+                    </div>
+                  </a>
+                </li>
                 <li><a class="dropdown-item" href="../demo/vertical-sidenav.html">
                     <div class="dropdown-item-wrapper"><span class="me-2 uil"></span>Recharge
                     </div>
@@ -532,7 +571,7 @@
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle lh-1" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"><span class="uil fs-8 me-2 uil-document-layout-right"></span>Fund</a>
           <ul class="dropdown-menu navbar-dropdown-caret">
             <li><a class="dropdown-item" href="../documentation/getting-started.html">
-                <div class="dropdown-item-wrapper"><span class="me-2 uil" data-feather="life-buoy"></span>Ledger
+                <div class="dropdown-item-wrapper"><span class="me-2 uil" data-feather="life-buoy"></span>Statement
                 </div>
               </a>
             </li>
@@ -633,7 +672,7 @@
 
               </ul>
             </li>
-            <li class="dropdown dropdown-inside"><a class="dropdown-item dropdown-toggle" id="layouts-doc" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+            {{-- <li class="dropdown dropdown-inside"><a class="dropdown-item dropdown-toggle" id="layouts-doc" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">
                 <div class="dropdown-item-wrapper"><span class="uil fs-8 uil-angle-right lh-1 dropdown-indicator-icon"></span><span><span class="me-2 uil" data-feather="table"></span>Referrals</span></div>
               </a>
               <ul class="dropdown-menu">
@@ -648,7 +687,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> --}}
             <li><a class="dropdown-item" href="../documentation/gulp.html">
                 <div class="dropdown-item-wrapper"><span class="me-2 fa-brands fa-gulp ms-1 me-1 fa-lg"></span>Referral Bonus
                 </div>
@@ -880,7 +919,7 @@
               <ul class="nav d-flex flex-column mb-2 pb-1">
                 <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="user"></span><span>Profile</span></a></li>
                 <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"><span class="me-2 text-body align-bottom" data-feather="pie-chart"></span>Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="lock"></span>Posts &amp; Activity</a></li>
+                <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="clock"></span>Activities</a></li>
                 <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="settings"></span>Settings &amp; Privacy </a></li>
                 <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="help-circle"></span>Help Center</a></li>
                 <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="globe"></span>Language</a></li>

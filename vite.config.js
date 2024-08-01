@@ -11,6 +11,9 @@ export default defineConfig({
                 "resources/css/theme.scss",
                 "resources/css/user.scss",
                 "resources/js/bootstrap-config.js",
+
+                // pages
+                "resources/js/main/main.js",
             ],
             refresh: true,
         }),

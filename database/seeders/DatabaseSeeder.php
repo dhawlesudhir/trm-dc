@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
             DmtBeneficiarySeeder::class,
             TransactionSeeder::class,
             LedgerSeeder::class,
-            FundTransferSeeder::class
+            FundTransferSeeder::class,
+            PromotionLeadsSeeder::class
         ]);
     }
 }

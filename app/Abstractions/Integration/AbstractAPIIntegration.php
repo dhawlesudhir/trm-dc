@@ -53,9 +53,7 @@ abstract class AbstractAPIIntegration implements APIIntegration
 
         $url = $this->apiUrl .  $endpoint;
 
-        Log::debug(' endpoint ' . $endpoint . ' headers', ['sendGetRequest' => $url, 'payload' => $payload, 'headers' => $headers]);
-        die;
-
+        Log::info('sendPostRequest', ['sendGetRequest' => $url, 'payload' => $payload, 'headers' => $headers]);
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, $method ?? false);
@@ -65,7 +63,6 @@ abstract class AbstractAPIIntegration implements APIIntegration
         $response = curl_exec($ch);
         curl_close($ch);
 
-        // return response()->json(['response' => $response]);
         return $response;
     }
 
@@ -73,27 +70,17 @@ abstract class AbstractAPIIntegration implements APIIntegration
     {
         $queryString = http_build_query($payload, '', '&');
         $url = $this->apiUrl .  $endpoint . '?' . $queryString;
-        Log::info('endpoint ' . $endpoint . ' headers', ['sendGetRequest' => $url, 'payload' => $payload, 'headers' => $headers]);
-        die;
 
-        if ($headers) {
-            $getHeaders = $headers;
-        } else {
-            $getHeaders = [
-                'Authorization: Bearer ' . $this->apiKey,
-            ];
-        }
+        Log::info('sendGetRequest', ['sendGetRequest' => $url, 'payload' => $payload, 'headers' => $headers]);
+        return null;
 
-        Log::info('sendGetRequest endpoint ' . $endpoint . ' headers', ['sendGetRequest' => $url, 'payload' => $payload, 'headers' => $headers]);
-        // die;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $getHeaders);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         $response = curl_exec($ch);
         curl_close($ch);
 
-        // return response()->json(['response' => $response]);
         return $response;
     }
 

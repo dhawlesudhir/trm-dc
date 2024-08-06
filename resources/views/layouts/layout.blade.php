@@ -17,8 +17,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
         <script src="{{ Vite::asset('vendors/simplebar/simplebar.min.js')}}"></script>
         <script src="{{ Vite::asset('resources/assets/js/config.js')}}"></script>
+
 
         @yield('styles')
 
@@ -34,10 +37,10 @@
 
             <div class="content">
                 @yield('content')
+                @include('common.footer')
             </div>
 
             @include('componets.chat')
-            @include('common.footer')
         </main>
 
         <!-- ===============================================-->
@@ -52,6 +55,10 @@
         <script src="{{Vite::asset('vendors/list.js/list.min.js')}}"></script>
         <script src="{{Vite::asset('vendors/feather-icons/feather.min.js')}}"></script>
         <script src="{{Vite::asset('vendors/dayjs/dayjs.min.js')}}"></script>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         @vite([
             'resources/js/app.js',
         ])

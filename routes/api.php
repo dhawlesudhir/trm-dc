@@ -2,6 +2,7 @@
 
 use App\Helpers\Helper;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LedgerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminOnlyRoutes;
@@ -20,6 +21,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::controller(UserController::class)->group(function () {
         Route::GET('/retailers', 'getRetailersList')->name('api.retailers');
         Route::POST('/user/update-profile/{user}', 'update')->name('api.update-profile')->can('update-profile', 'user');
+    });
+
+    //Ledger
+    Route::controller(LedgerController::class)->group(function () {
+        Route::GET('/statement', 'getStatement')->name('api.user.statement');
     });
 });
 

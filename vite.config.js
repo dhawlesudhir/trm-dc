@@ -14,6 +14,7 @@ export default defineConfig({
 
                 // pages
                 "resources/js/main/main.js",
+                "resources/js/fund/statement.js",
             ],
             refresh: true,
         }),

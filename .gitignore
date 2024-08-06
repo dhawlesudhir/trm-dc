@@ -20,4 +20,5 @@ yarn-error.log
 /.vscode
 .dockerignore
 /resources/assets
+/resources/img
 /vendors

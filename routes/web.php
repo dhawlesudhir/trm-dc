@@ -46,7 +46,13 @@ Route::get('/mobile/recharge', function () {
     return view('pages.mobile-recharge');
 })->name('mobile-recharge');
 
+Route::get('/service/transactions', function () {
+    return view('pages.transaction');
+})->name('service.transactions');
 
+Route::get('/fund/statements', function () {
+    return view('fund.statements');
+})->name('fund.statement');
 
 Route::fallback(function () {
     // todo:invalid request view
